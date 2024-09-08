@@ -1,4 +1,4 @@
-print ("testando....")
+print ("preparando....")
 
 import speech_recognition as sr
 
@@ -21,27 +21,25 @@ def ouvir_microfone():
     try:
         #Passa a variável para o algoritmo reconhecedor de padrões
         frase = microfone.recognize_google(audio,language='pt-BR')
-        if "navegador" in frase:
+        if "navegador Firefox" in frase:
             os.system("start Firefox.exe")
             return False
-        elif "Excel" in frase:
-            os.system("start Excel.exe")
+        elif "navegador Chrome" in frase:
+            os.system("start Chrome.exe")
             return False
-        elif "PowerPont" in frase:
-            os.system("start POWERPNT.exe")
-            return False
-        elif "Edge" in frase:
-            os.system("start msedge.exe")
-            return False
-        elif "Fechar" in frase:
-            os.system("exit")
+        elif "fechar" in frase:
+            print("Encerrando aplicação....")
             return True
-        #retorna a frase pronunciada
-        print("Você disse: " + frase)
+        else:
+            #retorna a frase pronunciada
+            print("Você disse: " + frase)
     except sr.UnknownValueError:
-        print("Não entendi")
+        print("Não entendi!")
+        return False
 
-    return frase
-while True:
-    if ouvir_microfone():
-        break
+def main():
+    while True:
+        if ouvir_microfone():
+            break
+    os.system("exit")
+main()
